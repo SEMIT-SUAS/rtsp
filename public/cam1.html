@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Player HLS - Câmera 1</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+    }
+    video {
+      width: 80%;
+      max-width: 800px;
+      height: auto;
+      background: #000;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <video id="video1" controls autoplay muted></video>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script>
+    const src = '/hls/cam1/playlist.m3u8';
+    //const src = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
+    const video = document.getElementById('video1');
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(src);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        video.play().catch(err => console.warn("Autoplay bloqueado:", err));
+      });
+      hls.on(Hls.Events.ERROR, (event, data) => {
+        console.error("Erro HLS:", data);
+      });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = src;
+      video.addEventListener('loadedmetadata', () => {
+        video.play().catch(err => console.warn("Autoplay bloqueado:", err));
+      });
+    } else {
+      console.error("HLS não suportado neste navegador.");
+    }
+  </script>
+</body>
+</html>
