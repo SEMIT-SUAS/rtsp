@@ -1,0 +1,19 @@
+# Ignorar dependências
+/node_modules/
+
+# Ignorar arquivos de vídeo e streaming gerado
+/hls/
+/*.ts
+/*.m3u8
+
+# Ignorar arquivos de log
+*.log
+
+# Ignorar backups temporários
+*.old
+*.bak
+
+# Ignorar arquivos do sistema e do VSCode (opcional)
+.DS_Store
+Thumbs.db
+.vscode/
