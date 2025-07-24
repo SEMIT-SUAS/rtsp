@@ -16,18 +16,21 @@ cameras.forEach(cam => {
   if (!fs.existsSync(camPath)) fs.mkdirSync(camPath);
 
   const ffmpeg = spawn("ffmpeg", [
-    "-i", cam.url,
-    "-c:v", "libx264",
-    "-preset", "veryfast",
-    "-tune", "zerolatency",
-    "-c:a", "aac",
-    "-f", "hls",
-    "-hls_time", "4",
-    "-hls_list_size", "5",
-    "-hls_flags", "delete_segments",
-    "-hls_segment_filename", `${camPath}/seg_%03d.ts`,
-    `${camPath}/playlist.m3u8`
-  ]);
+  "-rtsp_transport", "tcp",            // Usa TCP (mais estável para rede)
+  "-i", cam.url,
+  "-an",                                // Remove áudio para economizar
+  "-c:v", "libx264",
+  "-preset", "ultrafast",               // Reduz carga na CPU
+  "-tune", "zerolatency",
+  "-profile:v", "baseline",
+  "-level", "3.0",
+  "-f", "hls",
+  "-hls_time", "2",                     // Segmentos menores (reduz atraso)
+  "-hls_list_size", "4",               // Playlist menor
+  "-hls_flags", "delete_segments+omit_endlist+append_list",
+  "-hls_segment_filename", `${camPath}/seg_%03d.ts`,
+  `${camPath}/playlist.m3u8`
+]);
 
   ffmpeg.stderr.on("data", data => console.log(`[${cam.id}] ${data.toString()}`));
   ffmpeg.on("exit", code => console.log(`[${cam.id}] ffmpeg exited: ${code}`));
