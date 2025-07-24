@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Player HLS - Câmera 1</title>
-  <meta name="viewport" content="width=device-width, initial-scale=0.1">
-  <!-- <link rel="stylesheet" href="/rtsp/public/css/style.css"> -->
+  <link rel="stylesheet" href="/rtsp/public/css/style.css">
 </head>
 <body>
 
@@ -13,7 +12,6 @@
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script>
     const src = '/hls/cam1/playlist.m3u8';
-    //const src = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
     const video = document.getElementById('video1');
 
     if (Hls.isSupported()) {
