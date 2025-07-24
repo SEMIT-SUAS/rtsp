@@ -2,17 +2,17 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Player HLS - Câmera 1</title>
+  <title>Player HLS - Câmera 4</title>
   <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
 
-  <video id="video1" controls autoplay muted></video>
+  <video id="video4" controls autoplay muted></video>
 
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script>
-    const src = '/hls/cam1/playlist.m3u8';
-    const video = document.getElementById('video1');
+    const src = '/hls/cam4/playlist.m3u8';
+    const video = document.getElementById('video4');
 
     if (Hls.isSupported()) {
       const hls = new Hls();
