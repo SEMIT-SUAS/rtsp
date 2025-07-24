@@ -2,27 +2,52 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Player HLS (.m3u8)</title>
   <style>
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      padding: 20px;
+    * {
+      box-sizing: border-box;
     }
-    video {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
+
     body {
       margin: 0;
       font-family: sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    h2 {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    @media (max-width: 400px) {
+      h2 {
+        font-size: 1.2em;
+        padding: 10px;
+      }
+
+      .grid {
+        padding: 10px;
+        gap: 10px;
+      }
     }
   </style>
 </head>
 <body>
-  <h2 style="text-align: center;">Assistir aos Vídeos</h2>
+  <h2>Assistir aos Vídeos</h2>
   <div class="grid">
     <video id="video1" controls></video>
     <video id="video2" controls></video>
