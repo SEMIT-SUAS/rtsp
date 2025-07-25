@@ -1,16 +1,25 @@
 [
-  
   {
     "id": "cam1",
-    "url": "rtsp://admin:C%21sco%40123%23@172.20.0.40:554/Streaming/Channels/1401"
+    "url": "rtsp://semit:C%21sco%40123%23@172.31.29.46:554"
   },
   {
     "id": "cam2",
-    "url": "rtsp://admin:C%21sco%40123%23@172.20.0.40:554/Streaming/Channels/101"
+    "url": "rtsp://admin:C%21sco%40123%23@192.168.67.2:554/Streaming/Channels/101"
   },
   {
     "id": "cam3",
-    "url": "rtsp://admin:C%21sco%40123%23@172.20.0.41:554/Streaming/Channels/1401"
+    "url": "rtsp://Admin:nano%402020@192.168.12.250:554"
+  },
+  {
+    "id": "cam4",
+    "url": "rtsp://admin:nano%402020@172.20.1.121:554"
+  },
+  {
+    "id": "cam5",
+    "url": "rtsp://Admin:nano%402020@172.20.1.120:554"
   }
+ 
   
 ]
+
