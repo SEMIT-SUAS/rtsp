@@ -24,11 +24,13 @@ function startStream(cam) {
       "-max_delay", "500000",           // reduz tempo máximo de espera por pacotes
       "-i", cam.url,
       "-an",                             // sem áudio
+      "-vf", "scale=640:360", 
       "-c:v", "libx264",
       "-preset", "ultrafast",
       "-tune", "zerolatency",
       "-profile:v", "baseline",
       "-level", "3.0",
+      "-aspect", "16:9",
       "-f", "hls",
       "-hls_time", "15",                // segmentos de 15s (mais robusto)
       "-hls_list_size", "20",           // playlist com 5 minutos (20 x 15s)
