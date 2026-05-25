@@ -17,3 +17,12 @@
 .DS_Store
 Thumbs.db
 .vscode/
+
+/node_modules/
+/hls/
+.env
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+generate-hash.js

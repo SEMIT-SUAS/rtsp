@@ -7,6 +7,7 @@ const app = express();
 const PORT = 8080;
 
 const cameras = require("./cameras.json");
+const pacRouter = require("./pac");
 const hlsPath = path.join(__dirname, "hls");
 
 // Cria a pasta base se não existir
@@ -93,6 +94,8 @@ app.use("/hls", express.static(hlsPath, {
     }
   }
 }));
+
+app.use("/pac", pacRouter);
 
 // Servir arquivos estáticos (HTML etc)
 app.use("/", express.static(path.join(__dirname, "public")));

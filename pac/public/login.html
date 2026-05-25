@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Painel de Câmeras</title>
+  <link rel="stylesheet" href="/pac/css/style.css" />
+</head>
+<body class="login-body">
+  <div class="login-container">
+    <div class="login-card">
+      <h1>Painel de Câmeras</h1>
+      <p class="subtitle">Entre com seu usuário e senha</p>
+
+      <form method="POST" action="/pac/login" class="login-form">
+        <label for="username">Usuário</label>
+        <input type="text" id="username" name="username" placeholder="Digite seu usuário" required />
+
+        <label for="password">Senha</label>
+        <input type="password" id="password" name="password" placeholder="Digite sua senha" required />
+
+        <button type="submit">Entrar</button>
+      </form>
+
+      <p id="errorMessage" class="error-message" style="display:none;">
+        Usuário ou senha inválidos.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("error")) {
+      document.getElementById("errorMessage").style.display = "block";
+    }
+  </script>
+</body>
+</html>

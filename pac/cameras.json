@@ -1,0 +1,26 @@
+[
+  {
+    "id": "cam1",
+    "name": "Câmera 1",
+    "category": "Interna",
+    "url": "rtsp://admin:Semit@2024*@172.31.29.52:554/Streaming/Channels/101"
+  },
+  {
+    "id": "cam2",
+    "name": "Câmera 2",
+    "category": "Interna",
+    "url": "rtsp://admin:Semit@2024*@10.61.2.254:554/Streaming/Channels/101"
+  },
+  {
+    "id": "cam3",
+    "name": "Câmera 3",
+    "category": "Externa",
+    "url": "rtsp://admin:Semit@2024*@10.61.2.253:554/Streaming/Channels/101"
+  },
+  {
+    "id": "cam4",
+    "name": "Câmera 4",
+    "category": "Externa",
+    "url": "rtsp://admin:Semit@2024*@10.61.2.253:554/Streaming/Channels/101"
+  }
+]

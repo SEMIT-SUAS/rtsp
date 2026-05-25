@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard de Cameras</title>
+  <link rel="stylesheet" href="/pac/css/style.css">
+</head>
+<body class="dashboard-body">
+  <header class="topbar">
+    <div>
+      <h1>Dashboard de Cameras</h1>
+      <p>Monitoramento HLS em tempo real</p>
+    </div>
+    <a class="logout-btn" href="/pac/logout">Sair</a>
+  </header>
+
+  <main class="dashboard-container">
+    <section class="category-section">
+      <h2>Obra: Maternidade Municipal</h2>
+      <div class="camera-grid" id="cat-Interna"></div>
+    </section>
+
+    <section class="category-section">
+      <h2>Obra: Policlinica</h2>
+      <div class="camera-grid" id="cat-Externa"></div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script>
+    async function loadCameras() {
+      try {
+        const response = await fetch("/pac/api/cameras");
+        if (!response.ok) {
+          throw new Error("Falha ao carregar lista de cameras");
+        }
+
+        const cameras = await response.json();
+
+        cameras.forEach(cam => {
+          const target = document.getElementById(`cat-${cam.category}`);
+          if (!target) return;
+
+          const card = document.createElement("div");
+          card.className = "camera-card";
+
+          card.innerHTML = `
+            <div class="camera-header">
+              <h3>${cam.name}</h3>
+              <span>${cam.id}</span>
+            </div>
+            <video id="video-${cam.id}" controls autoplay muted playsinline></video>
+            <p id="status-${cam.id}">Status: ${formatStatus(cam.status)}</p>
+          `;
+
+          target.appendChild(card);
+
+          const video = document.getElementById(`video-${cam.id}`);
+          const status = document.getElementById(`status-${cam.id}`);
+          initHls(video, cam.hls, status);
+          attachVideoStatus(video, status, cam.status);
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    function initHls(video, src, statusNode) {
+      if (Hls.isSupported()) {
+        const hls = new Hls({
+          liveSyncDurationCount: 2,
+          maxLiveSyncPlaybackRate: 1.5
+        });
+
+        hls.loadSource(src);
+        hls.attachMedia(video);
+
+        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+          video.play().catch(err => console.warn("Autoplay bloqueado:", err));
+        });
+
+        hls.on(Hls.Events.ERROR, (event, data) => {
+          console.error("Erro HLS:", data);
+          if (statusNode) {
+            statusNode.textContent = `Status: erro HLS - ${data.details || data.type || "desconhecido"}`;
+          }
+        });
+      } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+        video.src = src;
+        video.addEventListener("loadedmetadata", () => {
+          video.play().catch(err => console.warn("Autoplay bloqueado:", err));
+        });
+      } else {
+        console.error("HLS nao suportado neste navegador.");
+      }
+    }
+
+    function formatStatus(status) {
+      if (!status) return "Sem info";
+      return `${status.state || "desconhecido"}${status.message ? ` - ${status.message}` : ""}`;
+    }
+
+    function attachVideoStatus(video, statusNode, initialStatus) {
+      if (!statusNode) return;
+
+      statusNode.textContent = `Status: ${formatStatus(initialStatus)}`;
+
+      video.addEventListener("error", () => {
+        statusNode.textContent = "Status: erro ao carregar HLS no navegador";
+      });
+
+      video.addEventListener("playing", () => {
+        statusNode.textContent = "Status: stream carregado";
+      });
+    }
+
+    loadCameras();
+  </script>
+</body>
+</html>

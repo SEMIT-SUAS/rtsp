@@ -1,16 +1,15 @@
 [
   {
     "id": "cam1",
-    "url": "rtsp://semit:C%21sco%40123%23@172.31.29.46:554"
+    "url": "rtsp://admin:Semit@2024*@10.82.19.3:554/Streaming/Channels/101"
   },
   {
     "id": "cam2",
-    "url": "rtsp://admin:C%21sco%40123%23@192.168.67.2:554/Streaming/Channels/101"
+    "url": "rtsp://admin:Semit@2024*@172.31.29.52:554/Streaming/Channels/101"
   },
   {
     "id": "cam3",
-    "url": "rtsp://Admin:nano%402020@192.168.12.250:554"
+    "url": "rtsp://admin:Semit@2024*@10.61.2.254:554/Streaming/Channels/101"
   }
-  
 ]
 
