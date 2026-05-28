@@ -6,7 +6,7 @@ const path = require("path");
 const app = express();
 const PORT = 8080;
 
-const cameras = require("./cameras.json");
+const cameras = require("./cameras-slz.json");
 const pacRouter = require("./pac");
 const hlsPath = path.join(__dirname, "hls");
 

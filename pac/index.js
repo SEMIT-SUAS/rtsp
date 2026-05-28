@@ -8,7 +8,7 @@ const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, ".env") });
 
 const pool = require("./db");
-const cameras = require("./cameras.json");
+const cameras = require("./cameras-pac.json");
 
 const router = express.Router();
 const PORT = process.env.PORT || 8081;
