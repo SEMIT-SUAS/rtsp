@@ -51,22 +51,19 @@
               <span>${cam.id}</span>
             </div>
             <video id="video-${cam.id}" controls autoplay muted playsinline></video>
-            <p id="status-${cam.id}">Status: ${formatStatus(cam.status)}</p>
           `;
 
           target.appendChild(card);
 
           const video = document.getElementById(`video-${cam.id}`);
-          const status = document.getElementById(`status-${cam.id}`);
-          initHls(video, cam.hls, status);
-          attachVideoStatus(video, status, cam.status);
+          initHls(video, cam.hls);
         });
       } catch (error) {
         console.error(error);
       }
     }
 
-    function initHls(video, src, statusNode) {
+    function initHls(video, src) {
       if (Hls.isSupported()) {
         const hls = new Hls({
           liveSyncDurationCount: 2,
@@ -82,9 +79,6 @@
 
         hls.on(Hls.Events.ERROR, (event, data) => {
           console.error("Erro HLS:", data);
-          if (statusNode) {
-            statusNode.textContent = `Status: erro HLS - ${data.details || data.type || "desconhecido"}`;
-          }
         });
       } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
         video.src = src;
@@ -94,25 +88,6 @@
       } else {
         console.error("HLS nao suportado neste navegador.");
       }
-    }
-
-    function formatStatus(status) {
-      if (!status) return "Sem info";
-      return `${status.state || "desconhecido"}${status.message ? ` - ${status.message}` : ""}`;
-    }
-
-    function attachVideoStatus(video, statusNode, initialStatus) {
-      if (!statusNode) return;
-
-      statusNode.textContent = `Status: ${formatStatus(initialStatus)}`;
-
-      video.addEventListener("error", () => {
-        statusNode.textContent = "Status: erro ao carregar HLS no navegador";
-      });
-
-      video.addEventListener("playing", () => {
-        statusNode.textContent = "Status: stream carregado";
-      });
     }
 
     loadCameras();
