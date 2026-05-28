@@ -110,15 +110,9 @@ function startStream(cam) {
       "-max_delay", "500000",
       "-i", rtspUrl,
       "-an",
-      "-vf", "scale=640:360",
-      "-c:v", "libx264",
-      "-preset", "ultrafast",
-      "-tune", "zerolatency",
-      "-profile:v", "baseline",
-      "-level", "3.0",
-      "-aspect", "16:9",
+      "-c:v", "copy",
       "-f", "hls",
-      "-hls_time", "2",
+      "-hls_time", "15",
       "-hls_list_size", "5",
       "-hls_flags", "delete_segments+append_list+omit_endlist",
       "-hls_segment_filename", path.join(camPath, "seg_%03d.ts"),
@@ -271,6 +265,7 @@ router.get("/logout", async (req, res) => {
 });
 
 router.get("/dashboard", requireAuth, async (req, res) => {
+  startStreamsOnce();
   await saveAccessLog(req.session.user.id, "VIEW_DASHBOARD", "Acessou o dashboard", req);
   res.sendFile(path.join(__dirname, "public/dashboard.html"));
 });
@@ -305,7 +300,7 @@ router.use(
   })
 );
 
-startStreamsOnce();
+//startStreamsOnce();
 
 if (require.main === module) {
   const app = express();
