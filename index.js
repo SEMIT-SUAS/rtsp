@@ -27,7 +27,7 @@ function startStream(cam) {
       "-an",                             // sem áudio
       "-c:v", "copy",
       "-f", "hls",
-      "-hls_time", "15",                // segmentos de 15s (mais robusto)
+      "-hls_time", "10",                // segmentos de 15s (mais robusto)
       "-hls_list_size", "20",           // playlist com 5 minutos (20 x 15s)
       "-hls_flags", "delete_segments+append_list",
       "-hls_segment_filename", `${camPath}/seg_%03d.ts`,

@@ -112,7 +112,7 @@ function startStream(cam) {
       "-an",
       "-c:v", "copy",
       "-f", "hls",
-      "-hls_time", "15",
+      "-hls_time", "10",
       "-hls_list_size", "5",
       "-hls_flags", "delete_segments+append_list+omit_endlist",
       "-hls_segment_filename", path.join(camPath, "seg_%03d.ts"),
