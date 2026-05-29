@@ -97,6 +97,14 @@ function startStream(cam) {
     fs.mkdirSync(camPath, { recursive: true });
   }
 
+  fs.readdir(camPath, (err, files) => {
+    if (err) return;
+
+    files.forEach((file) => {
+      fs.unlink(path.join(camPath, file), () => {});
+    });
+  });
+
   streamStatus.set(cam.id, {
     state: "starting",
     message: "Inicializando stream",
@@ -112,7 +120,7 @@ function startStream(cam) {
       "-an",
       "-c:v", "copy",
       "-f", "hls",
-      "-hls_time", "10",
+      "-hls_time", "6",
       "-hls_list_size", "5",
       "-hls_flags", "delete_segments+append_list+omit_endlist",
       "-hls_segment_filename", path.join(camPath, "seg_%03d.ts"),

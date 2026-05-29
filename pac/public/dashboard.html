@@ -66,8 +66,15 @@
     function initHls(video, src) {
       if (Hls.isSupported()) {
         const hls = new Hls({
-          liveSyncDurationCount: 2,
-          maxLiveSyncPlaybackRate: 1.5
+          liveSyncDurationCount: 1,
+          maxLiveSyncPlaybackRate: 1.5,
+          manifestLoadingMaxRetry: 20,
+          manifestLoadingRetryDelay: 1000,
+          manifestLoadingMaxRetryTimeout: 8000,
+          levelLoadingMaxRetry: 20,
+          levelLoadingRetryDelay: 1000,
+          fragLoadingMaxRetry: 10,
+          fragLoadingRetryDelay: 1000
         });
 
         hls.loadSource(src);
